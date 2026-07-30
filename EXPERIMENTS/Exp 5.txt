@@ -1,0 +1,150 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE DBMS_LAB;
+Database changed
+mysql>
+mysql> -- 1. Display Registration Number, Student Name and Date of Birth
+mysql> SELECT RegNo, Name, DOB
+    -> FROM STUDENT;
++-------+---------+------------+
+| RegNo | Name    | DOB        |
++-------+---------+------------+
+|   101 | Aravind | 2004-05-12 |
+|   102 | Priya   | 2004-08-20 |
+|   103 | Karthik | 2004-01-15 |
+|   104 | Divya   | 2004-09-10 |
+|   105 | Ramesh  | 2004-11-25 |
++-------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 2. List all female students
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Gender = 'F';
++-------+-------+--------+------------+------------+------------+
+| RegNo | Name  | Gender | DOB        | MobileNo   | City       |
++-------+-------+--------+------------+------------+------------+
+|   102 | Priya | F      | 2004-08-20 | 9876543211 | Chennai    |
+|   104 | Divya | F      | 2004-09-10 | 9876543213 | Coimbatore |
++-------+-------+--------+------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 3. List the students who registered for the course 'C01'
+mysql> SELECT S.RegNo, S.Name
+    -> FROM STUDENT S
+    -> JOIN STUDENT3 ST ON S.RegNo = ST.RegNo
+    -> JOIN COURSE C ON C.CourseNo = 'C01';
++-------+---------+
+| RegNo | Name    |
++-------+---------+
+|   101 | Aravind |
+|   101 | Aravind |
+|   102 | Priya   |
+|   102 | Priya   |
+|   103 | Karthik |
+|   103 | Karthik |
++-------+---------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 4. Display all faculty details joined before November 2014
+mysql> SELECT *
+    -> FROM FACULTY
+    -> WHERE DOJ < '2014-11-01';
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Kamal   | M      | 1980-03-15 | 2010-06-01 | 9876500001 | CSE  |
++-------+---------+--------+------------+------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 5. Display all the courses not allotted to Hall 'H001'
+mysql> SELECT *
+    -> FROM COURSE
+    -> WHERE HallNo <> 'H001';
++----------+------------+------------+-------+--------+-------+
+| CourseNo | CourseDesc | CourseType | SemNo | HallNo | FacNo |
++----------+------------+------------+-------+--------+-------+
+| C02      | JAVA       | T          | 4     | H002   | F002  |
+| C03      | Python     | P          | 5     | H003   | F003  |
++----------+------------+------------+-------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 6. List the students whose name ends with 'sh'
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name LIKE '%sh';
++-------+--------+--------+------------+------------+-------+
+| RegNo | Name   | Gender | DOB        | MobileNo   | City  |
++-------+--------+--------+------------+------------+-------+
+|   105 | Ramesh | M      | 2004-11-25 | 9876543214 | Erode |
++-------+--------+--------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 7. Display all students whose name contains 'sh'
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name LIKE '%sh%';
++-------+--------+--------+------------+------------+-------+
+| RegNo | Name   | Gender | DOB        | MobileNo   | City  |
++-------+--------+--------+------------+------------+-------+
+|   105 | Ramesh | M      | 2004-11-25 | 9876543214 | Erode |
++-------+--------+--------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 8. Find all students who are located in cities having 'Sal' as substring
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE City LIKE '%Sal%';
++-------+---------+--------+------------+------------+-------+
+| RegNo | Name    | Gender | DOB        | MobileNo   | City  |
++-------+---------+--------+------------+------------+-------+
+|   101 | Aravind | M      | 2004-05-12 | 9876543210 | Salem |
++-------+---------+--------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 9. Display the students whose names do not contain six letters
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE CHAR_LENGTH(Name) <> 6;
++-------+---------+--------+------------+------------+------------+
+| RegNo | Name    | Gender | DOB        | MobileNo   | City       |
++-------+---------+--------+------------+------------+------------+
+|   101 | Aravind | M      | 2004-05-12 | 9876543210 | Salem      |
+|   102 | Priya   | F      | 2004-08-20 | 9876543211 | Chennai    |
+|   103 | Karthik | M      | 2004-01-15 | 9876543212 | Madurai    |
+|   104 | Divya   | F      | 2004-09-10 | 9876543213 | Coimbatore |
++-------+---------+--------+------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 10. Find all students whose names contain 'am'
+mysql> SELECT *
+    -> FROM STUDENT
+    -> WHERE Name LIKE '%am%';
++-------+--------+--------+------------+------------+-------+
+| RegNo | Name   | Gender | DOB        | MobileNo   | City  |
++-------+--------+--------+------------+------------+-------+
+|   105 | Ramesh | M      | 2004-11-25 | 9876543214 | Erode |
++-------+--------+--------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
