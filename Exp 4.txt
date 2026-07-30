@@ -1,0 +1,87 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE DBMS_LAB;
+Database changed
+mysql>
+mysql> -- 1. Update the student name whose register number is 101
+mysql> UPDATE STUDENT
+    -> SET Name = 'Aravind'
+    -> WHERE RegNo = 101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+mysql> -- View the updated record
+mysql> SELECT * FROM STUDENT WHERE RegNo = 101;
++-------+---------+--------+------------+------------+-------+
+| RegNo | Name    | Gender | DOB        | MobileNo   | City  |
++-------+---------+--------+------------+------------+-------+
+|   101 | Aravind | M      | 2004-05-12 | 9876543210 | Salem |
++-------+---------+--------+------------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 2. Delete the faculty who resigned
+mysql> DELETE FROM FACULTY
+    -> WHERE FacNo = 'F003';
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> -- View FACULTY table
+mysql> SELECT * FROM FACULTY;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Kamal   | M      | 1980-03-15 | 2010-06-01 | 9876500001 | CSE  |
+| F002  | Mohan   | M      | 1975-07-20 | 2008-04-15 | 9876500002 | IT   |
++-------+---------+--------+------------+------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> -- 3. Modify the faculty name 'Mohan' joining date
+mysql> UPDATE FACULTY
+    -> SET DOJ = '2007-01-10'
+    -> WHERE FacName = 'Mohan';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+mysql> -- View updated faculty record
+mysql> SELECT * FROM FACULTY WHERE FacName = 'Mohan';
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F002  | Mohan   | M      | 1975-07-20 | 2007-01-10 | 9876500002 | IT   |
++-------+---------+--------+------------+------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> -- 4. Delete faculty who joined before 2009
+mysql> DELETE FROM FACULTY
+    -> WHERE DOJ < '2009-01-01';
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> -- Display final FACULTY table
+mysql> SELECT * FROM FACULTY;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Kamal   | M      | 1980-03-15 | 2010-06-01 | 9876500001 | CSE  |
++-------+---------+--------+------------+------------+------------+------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
