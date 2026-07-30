@@ -1,0 +1,234 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 24
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DROP DATABASE IF EXISTS DBMS_LAB;
+Query OK, 3 rows affected (0.06 sec)
+
+mysql>
+mysql> CREATE DATABASE DBMS_LAB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> USE DBMS_LAB;
+Database changed
+mysql>
+mysql> -- STUDENT TABLE
+mysql> CREATE TABLE STUDENT
+    -> (
+    ->     RegNo INT PRIMARY KEY,
+    ->     Name VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     MobileNo BIGINT,
+    ->     City VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>
+mysql> -- FACULTY TABLE
+mysql> CREATE TABLE FACULTY
+    -> (
+    ->     FacNo VARCHAR(4) PRIMARY KEY,
+    ->     FacName VARCHAR(15),
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     DOJ DATE,
+    ->     MobileNo BIGINT,
+    ->     Dept VARCHAR(10),
+    ->     CONSTRAINT chk_gender CHECK (Gender IN ('M','F'))
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> -- DEPARTMENT TABLE
+mysql> CREATE TABLE DEPARTMENT
+    -> (
+    ->     DeptNo VARCHAR(4) PRIMARY KEY,
+    ->     DeptName VARCHAR(15),
+    ->     DeptHead VARCHAR(4)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> -- COURSE TABLE
+mysql> CREATE TABLE COURSE
+    -> (
+    ->     CourseNo VARCHAR(3) PRIMARY KEY,
+    ->     CourseDesc VARCHAR(14),
+    ->     CourseType CHAR(1),
+    ->     SemNo CHAR(1),
+    ->     HallNo VARCHAR(4),
+    ->     FacNo VARCHAR(4),
+    ->     CONSTRAINT chk_sem CHECK (SemNo IN ('1','2','3','4','5','6'))
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> -- STUDENT2 TABLE
+mysql> CREATE TABLE STUDENT2
+    -> (
+    ->     RegNo INT PRIMARY KEY,
+    ->     S1Name VARCHAR(20) UNIQUE,
+    ->     Gender CHAR(1),
+    ->     DOB DATE,
+    ->     MobileNo BIGINT,
+    ->     City VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql> -- STUDENT3 TABLE
+mysql> CREATE TABLE STUDENT3
+    -> (
+    ->     RegNo INT,
+    ->     Marks INT,
+    ->     CONSTRAINT fk_reg FOREIGN KEY(RegNo)
+    ->     REFERENCES STUDENT2(RegNo)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql>
+mysql> -- INSERT INTO STUDENT
+mysql> INSERT INTO STUDENT VALUES
+    -> (101,'Arun','M','2004-05-12',9876543210,'Salem'),
+    -> (102,'Priya','F','2004-08-20',9876543211,'Chennai'),
+    -> (103,'Karthik','M','2004-01-15',9876543212,'Madurai'),
+    -> (104,'Divya','F','2004-09-10',9876543213,'Coimbatore'),
+    -> (105,'Ramesh','M','2004-11-25',9876543214,'Erode');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- INSERT INTO FACULTY
+mysql> INSERT INTO FACULTY VALUES
+    -> ('F001','Kamal','M','1980-03-15','2010-06-01',9876500001,'CSE'),
+    -> ('F002','Mohan','M','1975-07-20','2008-04-15',9876500002,'IT'),
+    -> ('F003','Ratnam','F','1982-11-10','2012-09-20',9876500003,'ECE');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- INSERT INTO DEPARTMENT
+mysql> INSERT INTO DEPARTMENT VALUES
+    -> ('D001','CSE','F001'),
+    -> ('D002','IT','F002'),
+    -> ('D003','ECE','F003');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- INSERT INTO COURSE
+mysql> INSERT INTO COURSE VALUES
+    -> ('C01','DBMS','T','3','H001','F001'),
+    -> ('C02','JAVA','T','4','H002','F002'),
+    -> ('C03','Python','P','5','H003','F003');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- INSERT INTO STUDENT2
+mysql> INSERT INTO STUDENT2 VALUES
+    -> (101,'Arun','M','2004-05-12',9876543210,'Salem'),
+    -> (102,'Priya','F','2004-08-20',9876543211,'Chennai'),
+    -> (103,'Karthik','M','2004-01-15',9876543212,'Madurai');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- INSERT INTO STUDENT3
+mysql> INSERT INTO STUDENT3 VALUES
+    -> (101,85),
+    -> (102,90),
+    -> (103,78);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> -- DISPLAY ALL TABLES
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_dbms_lab |
++--------------------+
+| course             |
+| department         |
+| faculty            |
+| student            |
+| student2           |
+| student3           |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql>
+mysql> SELECT * FROM STUDENT;
++-------+---------+--------+------------+------------+------------+
+| RegNo | Name    | Gender | DOB        | MobileNo   | City       |
++-------+---------+--------+------------+------------+------------+
+|   101 | Arun    | M      | 2004-05-12 | 9876543210 | Salem      |
+|   102 | Priya   | F      | 2004-08-20 | 9876543211 | Chennai    |
+|   103 | Karthik | M      | 2004-01-15 | 9876543212 | Madurai    |
+|   104 | Divya   | F      | 2004-09-10 | 9876543213 | Coimbatore |
+|   105 | Ramesh  | M      | 2004-11-25 | 9876543214 | Erode      |
++-------+---------+--------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM FACULTY;
++-------+---------+--------+------------+------------+------------+------+
+| FacNo | FacName | Gender | DOB        | DOJ        | MobileNo   | Dept |
++-------+---------+--------+------------+------------+------------+------+
+| F001  | Kamal   | M      | 1980-03-15 | 2010-06-01 | 9876500001 | CSE  |
+| F002  | Mohan   | M      | 1975-07-20 | 2008-04-15 | 9876500002 | IT   |
+| F003  | Ratnam  | F      | 1982-11-10 | 2012-09-20 | 9876500003 | ECE  |
++-------+---------+--------+------------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM DEPARTMENT;
++--------+----------+----------+
+| DeptNo | DeptName | DeptHead |
++--------+----------+----------+
+| D001   | CSE      | F001     |
+| D002   | IT       | F002     |
+| D003   | ECE      | F003     |
++--------+----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM COURSE;
++----------+------------+------------+-------+--------+-------+
+| CourseNo | CourseDesc | CourseType | SemNo | HallNo | FacNo |
++----------+------------+------------+-------+--------+-------+
+| C01      | DBMS       | T          | 3     | H001   | F001  |
+| C02      | JAVA       | T          | 4     | H002   | F002  |
+| C03      | Python     | P          | 5     | H003   | F003  |
++----------+------------+------------+-------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT2;
++-------+---------+--------+------------+------------+---------+
+| RegNo | S1Name  | Gender | DOB        | MobileNo   | City    |
++-------+---------+--------+------------+------------+---------+
+|   101 | Arun    | M      | 2004-05-12 | 9876543210 | Salem   |
+|   102 | Priya   | F      | 2004-08-20 | 9876543211 | Chennai |
+|   103 | Karthik | M      | 2004-01-15 | 9876543212 | Madurai |
++-------+---------+--------+------------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT3;
++-------+-------+
+| RegNo | Marks |
++-------+-------+
+|   101 |    85 |
+|   102 |    90 |
+|   103 |    78 |
++-------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
