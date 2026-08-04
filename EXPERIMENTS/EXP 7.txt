@@ -1,0 +1,128 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 27
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use dbms_lab;
+Database changed
+mysql> select avg(marks) as average_marks
+    -> from student3;
++---------------+
+| average_marks |
++---------------+
+|       84.3333 |
++---------------+
+1 row in set (0.02 sec)
+
+mysql> select city,count(*) as total_students
+    -> from student
+    -> group by city;
++------------+----------------+
+| city       | total_students |
++------------+----------------+
+| Salem      |              1 |
+| Chennai    |              1 |
+| Madurai    |              1 |
+| Coimbatore |              1 |
+| Erode      |              1 |
++------------+----------------+
+5 rows in set (0.02 sec)
+
+mysql> select dept,count(*) as total_faculty
+    -> from faculty
+    -> group by dept;
++------+---------------+
+| dept | total_faculty |
++------+---------------+
+| CSE  |             1 |
+| IT   |             1 |
+| ECE  |             1 |
++------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(marks) as average_marks
+    -> from student3
+    -> having avg(marks)>80;
++---------------+
+| average_marks |
++---------------+
+|       84.3333 |
++---------------+
+1 row in set (0.02 sec)
+
+mysql> select *
+    -> from student
+    -> order by name asc;
++-------+---------+--------+------------+------------+------------+
+| REGNO | NAME    | GENDER | DOB        | MOBILENO   | CITY       |
++-------+---------+--------+------------+------------+------------+
+|   101 | Arun    | M      | 2004-05-12 | 9876543210 | Salem      |
+|   104 | Divya   | F      | 2004-09-10 | 9876543213 | Coimbatore |
+|   103 | Karthik | M      | 2004-01-15 | 9876543212 | Madurai    |
+|   102 | Priya   | F      | 2004-08-20 | 9876543211 | Chennai    |
+|   105 | Ramesh  | M      | 2004-11-25 | 9876543214 | Erode      |
++-------+---------+--------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select *
+    -> from faculty
+    -> order by doj desc;
++-------+---------+--------+------------+------------+------------+------+
+| FACNO | FACNAME | GENDER | DOB        | DOJ        | MOBILENO   | DEPT |
++-------+---------+--------+------------+------------+------------+------+
+| F003  | Ratnam  | F      | 1982-11-10 | 2012-09-20 | 9876500003 | ECE  |
+| F001  | Kamal   | M      | 1980-03-15 | 2010-06-01 | 9876500001 | CSE  |
+| F002  | Mohan   | M      | 1975-07-20 | 2008-04-15 | 9876500002 | IT   |
++-------+---------+--------+------------+------------+------------+------+
+3 rows in set (0.02 sec)
+
+mysql> select *
+    -> from student
+    -> order by city asc,name asc;
++-------+---------+--------+------------+------------+------------+
+| REGNO | NAME    | GENDER | DOB        | MOBILENO   | CITY       |
++-------+---------+--------+------------+------------+------------+
+|   102 | Priya   | F      | 2004-08-20 | 9876543211 | Chennai    |
+|   104 | Divya   | F      | 2004-09-10 | 9876543213 | Coimbatore |
+|   105 | Ramesh  | M      | 2004-11-25 | 9876543214 | Erode      |
+|   103 | Karthik | M      | 2004-01-15 | 9876543212 | Madurai    |
+|   101 | Arun    | M      | 2004-05-12 | 9876543210 | Salem      |
++-------+---------+--------+------------+------------+------------+
+5 rows in set (0.02 sec)
+
+mysql> select max(marks) as highest_mark
+    -> from student3;
++--------------+
+| highest_mark |
++--------------+
+|           90 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) as lowest_mark
+    -> from student3;
++-------------+
+| lowest_mark |
++-------------+
+|          78 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) as total_marks
+    -> from student3;
++-------------+
+| total_marks |
++-------------+
+|         253 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>
