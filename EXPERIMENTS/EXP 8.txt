@@ -1,0 +1,124 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 28
+Server version: 8.0.45 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use dbms_lab;
+Database changed
+mysql> select s.regno,s.name,st.marks
+    -> from student s
+    -> inner join student3 st
+    -> on s.regno=st.regno;
++-------+---------+-------+
+| regno | name    | marks |
++-------+---------+-------+
+|   101 | Arun    |    85 |
+|   102 | Priya   |    90 |
+|   103 | Karthik |    78 |
++-------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select c.coursedesc,f.facname
+    -> from course c
+    -> inner join faculty f
+    -> on c.facno=f.facno;
++------------+---------+
+| coursedesc | facname |
++------------+---------+
+| DBMS       | Kamal   |
+| JAVA       | Mohan   |
+| Python     | Ratnam  |
++------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select d.deptname,f.facname
+    -> from department d
+    -> inner join faculty f
+    -> on d.depthead=f.facno;
++----------+---------+
+| deptname | facname |
++----------+---------+
+| CSE      | Kamal   |
+| IT       | Mohan   |
+| ECE      | Ratnam  |
++----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select s.name,s.city,st.marks
+    -> from student s
+    -> inner join student3 st
+    -> on s.regno=st.regno;
++---------+---------+-------+
+| name    | city    | marks |
++---------+---------+-------+
+| Arun    | Salem   |    85 |
+| Priya   | Chennai |    90 |
+| Karthik | Madurai |    78 |
++---------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select f.facname,c.coursedesc
+    -> from faculty f
+    -> inner join course c
+    -> on f.facno=c.facno;
++---------+------------+
+| facname | coursedesc |
++---------+------------+
+| Kamal   | DBMS       |
+| Mohan   | JAVA       |
+| Ratnam  | Python     |
++---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT S.RegNo, S.Name, ST.Marks
+    -> FROM STUDENT S
+    -> LEFT JOIN STUDENT3 ST
+    -> ON S.RegNo = ST.RegNo;
++-------+---------+-------+
+| RegNo | Name    | Marks |
++-------+---------+-------+
+|   101 | Arun    |    85 |
+|   102 | Priya   |    90 |
+|   103 | Karthik |    78 |
+|   104 | Divya   |  NULL |
+|   105 | Ramesh  |  NULL |
++-------+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT C.CourseNo, C.CourseDesc, F.FacName
+    -> FROM COURSE C
+    -> LEFT JOIN FACULTY F
+    -> ON C.FacNo = F.FacNo;
++----------+------------+---------+
+| CourseNo | CourseDesc | FacName |
++----------+------------+---------+
+| C01      | DBMS       | Kamal   |
+| C02      | JAVA       | Mohan   |
+| C03      | Python     | Ratnam  |
++----------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT D.DeptName, F.FacName, C.CourseDesc
+    -> FROM DEPARTMENT D
+    -> INNER JOIN FACULTY F
+    -> ON D.DeptHead = F.FacNo
+    -> INNER JOIN COURSE C
+    -> ON F.FacNo = C.FacNo;
++----------+---------+------------+
+| DeptName | FacName | CourseDesc |
++----------+---------+------------+
+| CSE      | Kamal   | DBMS       |
+| IT       | Mohan   | JAVA       |
+| ECE      | Ratnam  | Python     |
++----------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql>
